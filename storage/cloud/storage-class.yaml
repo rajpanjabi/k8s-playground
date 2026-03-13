@@ -1,0 +1,9 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: efs-sc
+provisioner: efs.csi.aws.com
+parameters:
+  provisioningMode: efs-ap           # Creates access points automatically
+  fileSystemId: fs-07d119e1554ed6759  # Your EFS filesystem ID
+  directoryPerms: "700"

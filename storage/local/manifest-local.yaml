@@ -1,0 +1,43 @@
+# 1. PV - reserve a folder on the node
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: host-pv
+spec:
+  capacity:
+    storage: 500Mi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/my-app
+---
+# 2. PVC - claim it
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: host-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+  storageClassName: ""
+---
+# 3. Pod - use it
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-app
+spec:
+  volumes:
+    - name: app-data
+      persistentVolumeClaim:
+        claimName: host-pvc
+  containers:
+    - name: app
+      image: busybox
+      command: ["sh", "-c", "echo hello > /data/test.txt && sleep 3600"]
+      volumeMounts:
+        - name: app-data
+          mountPath: /data
