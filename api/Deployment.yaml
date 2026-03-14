@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  namespace: demo-namespace
+spec:
+  replicas: 2                     # Two identical pods
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+        - name: api
+          image: paulbouwer/hello-kubernetes:1.10
+          ports:
+            - containerPort: 8080
+          env:
+            # From ConfigMap
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: app-configmap
+                  key: redis_host
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: app-configmap
+                  key: redis_port
+            # From Secret
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: redis_password
+            # Static env var (for the demo image)
+            - name: MESSAGE
+              value: "Hello from Kubernetes!"
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "100m"

@@ -14,7 +14,7 @@ spec:
       labels:
         app: redis
     spec:
-      cont ainers: 
+      containers: 
         - name: redis
           image: redis:7-alpine
           ports:
