@@ -26,6 +26,7 @@ kind create cluster
 
 ## kind commands
 
+```bash 
 # List clusters
 kind get clusters
 
@@ -36,11 +37,8 @@ kind delete cluster --name prod-sim
 kind create cluster --name prod-sim --config=cluster.yaml
 
 ## Scheduling nodes to pods
-Here we have 3 worker nodes, lets say they are different in size(capacity, cpu, ram). We can spin up pods based on requiremnets to any of these nodes. 
-
-- First, we label the nodes 
-
-```bash
+# Here we have 3 worker nodes, lets say they are different in size(capacity, cpu, ram). We can spin up pods based on requiremnets to any of these nodes. 
+# - First, we label the nodes 
 kubectl label nodes node_name key=value
 kubectl label nodes prod-sim-worker env=production
 ```
@@ -59,5 +57,3 @@ spec:
     - name: app
       image: nginx
 ```
-
-## High Availability

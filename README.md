@@ -38,24 +38,37 @@ The playground consists of:
 
 ```
 k8s-playground/
-├── namespace.yaml          # Creates demo-namespace
-├── configMap.yaml          # Configuration for the API
-├── secret.yaml            # Sensitive data (Redis password)
-├── ingress.yaml           # External routing to API service
-├── api/
-│   ├── Deployment.yaml    # API application deployment
-│   └── service.yaml       # Service for API pods
-├── redis/
-│   ├── statefulset.yaml   # Redis StatefulSet with persistence
-│   └── service.yaml       # Service for Redis
-└── storage/
-    ├── cloud/
-    │   ├── storage-class.yaml  # AWS EFS StorageClass
-    │   ├── pvc.yaml           # Persistent Volume Claim
-    │   └── pod.yaml           # Test pod using cloud storage
-    └── local/
-        ├── manifest-local.yaml # Local storage example
-        └── local-storage.md    # Documentation
+├── README.md
+├── minikube/
+│   ├── namespace.yaml           # Creates demo-namespace
+│   ├── configMap.yaml           # Shared config for the app
+│   ├── secret.yaml              # Redis password secret
+│   ├── ingress.yaml             # External routing for the API
+│   ├── api/
+│   │   ├── Deployment.yaml      # API Deployment
+│   │   └── service.yaml         # API ClusterIP Service
+│   ├── redis/
+│   │   ├── statefulset.yaml     # Redis StatefulSet
+│   │   └── service.yaml         # Headless Redis Service
+│   └── storage/
+│       ├── cloud/
+│       │   ├── storage-class.yaml
+│       │   ├── pvc.yaml
+│       │   └── pod.yaml
+│       └── local/
+│           ├── manifest-local.yaml
+│           └── local-storage.md
+└── kind/
+    ├── kcluster.yaml            # kind cluster definition
+    ├── kind.md                  # kind notes and examples
+    ├── helm.md                  # Helm notes
+    └── first_helm_k8s/
+        ├── Chart.yaml           # Custom Helm chart metadata
+        ├── values.yaml          # Default chart values
+        ├── templates/
+        │   ├── deployment.yaml
+        │   └── service.yaml
+        └── wordpress/           # Pulled WordPress chart with dependencies
 ```
 
 ## 🚀 Getting Started
